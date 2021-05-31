@@ -3,7 +3,7 @@ import { Card, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import Map from "./Map";
 import { Container } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import { GET_JOBS, QUERY_ME_BASIC } from "../utils/queries";
+import { GET_JOBS } from "../utils/queries";
 import { PICKUP_JOB } from "../utils/mutation";
 import moment from "moment";
 const Jobs = () => {
@@ -17,10 +17,10 @@ const [pickupJob] = useMutation(PICKUP_JOB)
     jobs = [jobsData.jobs];
   }
 
-  const handlePickup = async (id) => {
-    console.log(id)
+  const handlePickup = async (id, jobDistance, jobCategory) => {
+    console.log(typeof distance)
     await pickupJob({
-      variables: { jobId: id },
+      variables: { _id: id, distance: jobDistance, category: jobCategory  },
     })
 
     window.location.assign("/profile");
@@ -55,7 +55,7 @@ const [pickupJob] = useMutation(PICKUP_JOB)
               </ListGroupItem>
             </ListGroup>
             <Card.Body>
-              <Button variant="danger" onClick={() => handlePickup(job._id)} >Accept Job</Button>{" "}
+              <Button variant="danger" onClick={() => handlePickup(job._id, job.distance, job.category)} >Accept Job</Button>{" "}
             </Card.Body>
           </Card>
         );

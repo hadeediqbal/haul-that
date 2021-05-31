@@ -1,20 +1,26 @@
-// import image from "../images/profile.png";
-import { QUERY_ME_BASIC } from "../utils/queries";
+import React, { useState } from "react";
+import { Card, ListGroupItem, ListGroup, Container, Row, Button, Modal} from "react-bootstrap";
+import { QUERY_ME_BASIC, GET_JOB } from "../utils/queries";
 import { useQuery } from "@apollo/react-hooks";
-import  React,{ useState } from "react";
-import {Card, ListGroupItem, ListGroup, Container, Row, Modal , Button} from "react-bootstrap";
 import Avatar from 'react-avatar';
-// import Pic1 from "../images/pic1.jpg"
+// import AcceptedJobs from '../components/AcceptedJobs'
+
+
 
 const Profile = () => {
   const { loading, data } = useQuery(QUERY_ME_BASIC);
   var user = {};
 
+  var jobs = [{
+    _id: "1234"
+  }];
+
   if (!loading) {
     user = data.me;
-    console.log(data);
+    jobs = [user.jobs[0]];
+    console.log(jobs[0]);
   }
-  
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -26,6 +32,7 @@ const Profile = () => {
   //   })
   // };
   
+
   return (
     <Container className="profileForm">
       <Row>
@@ -65,7 +72,16 @@ const Profile = () => {
           </ListGroup>
         </Card>
       </Row>
+      <Row>
+     
+      </Row>
+      {/* <AcceptedJobs /> */}
+      
     </Container>
+
+    
+
+   
   );
 };
 
